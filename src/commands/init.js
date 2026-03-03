@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * `contextbridge init` — Initialize ContextBridge in a project.
+ * `ai-context-manager init` — Initialize AI Context Manager in a project.
  *
- * Auto-detects stack and project name, creates .contextbridge.json config,
- * creates .contextbridge/ directory, and adds to .gitignore.
+ * Auto-detects stack and project name, creates .ai-context-manager.json config,
+ * creates .ai-context-manager/ directory, and adds to .gitignore.
  */
 
 const fs = require('fs');
@@ -18,7 +18,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
   command: 'init',
-  describe: 'Initialize ContextBridge in the current project',
+  describe: 'Initialize AI Context Manager in the current project',
   builder: (yargs) => {
     return yargs
       .option('yes', {
@@ -89,7 +89,7 @@ module.exports = {
 
     // Generate config
     const config = {
-      $schema: 'https://contextbridge.dev/schema/config-v1.json',
+      $schema: 'https://ai-context-manager.dev/schema/config-v1.json',
       schemaVersion: '1.0',
       project: {
         name: finalName,
@@ -127,16 +127,16 @@ module.exports = {
     writeFileAtomic(configPath, JSON.stringify(config, null, 2) + '\n');
     logger.success(`Created ${chalk.green(CONFIG_FILENAME)}`);
 
-    // Create .contextbridge directory
+    // Create .ai-context-manager directory
     fs.mkdirSync(contextDir, { recursive: true });
     logger.success(`Created ${chalk.green(CONTEXTBRIDGE_DIR + '/')} directory`);
 
-    // Add .contextbridge/ to .gitignore
+    // Add .ai-context-manager/ to .gitignore
     addToGitignore(projectRoot);
 
     // Summary
     logger.blank();
-    logger.info(chalk.bold('Setup complete!'));
+    logger.info(chalk.bold('AI Context Manager setup complete!'));
     logger.blank();
     logger.info('Next steps:');
     logger.indent(`1. Edit ${chalk.cyan(CONFIG_FILENAME)} to add your progress & context`);
@@ -149,30 +149,30 @@ module.exports = {
 };
 
 /**
- * Add .contextbridge/ to .gitignore if it exists and doesn't already have it.
+ * Add .ai-context-manager/ to .gitignore if it exists and doesn't already have it.
  */
 function addToGitignore(projectRoot) {
   const gitignorePath = path.join(projectRoot, '.gitignore');
-  const entry = '.contextbridge/';
+  const entry = '.ai-context-manager/';
 
   try {
     if (fs.existsSync(gitignorePath)) {
       const content = fs.readFileSync(gitignorePath, 'utf8');
       if (content.includes(entry)) {
-        logger.verbose('.contextbridge/ already in .gitignore');
+        logger.verbose('.ai-context-manager/ already in .gitignore');
         return;
       }
       // Append
       const newContent = content.endsWith('\n')
-        ? content + `\n# ContextBridge handoff files\n${entry}\n`
-        : content + `\n\n# ContextBridge handoff files\n${entry}\n`;
+        ? content + `\n# AI Context Manager handoff files\n${entry}\n`
+        : content + `\n\n# AI Context Manager handoff files\n${entry}\n`;
       fs.writeFileSync(gitignorePath, newContent, 'utf8');
       logger.success(`Added ${chalk.green(entry)} to .gitignore`);
     } else {
       // Create .gitignore
       fs.writeFileSync(
         gitignorePath,
-        `# ContextBridge handoff files\n${entry}\n`,
+        `# AI Context Manager handoff files\n${entry}\n`,
         'utf8'
       );
       logger.success(`Created .gitignore with ${chalk.green(entry)}`);

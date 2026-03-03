@@ -100,7 +100,7 @@ function renderHandoff(data, options = {}) {
   const secretScan = scanForSecrets(markdown);
 
   // Determine output files
-  const outputDir = path.join(data.projectRoot, '.contextbridge');
+  const outputDir = path.join(data.projectRoot, '.ai-context-manager');
   const files = [];
 
   if (format === 'md' || format === 'both') {
@@ -149,7 +149,7 @@ function buildJsonPayload(templateData, data) {
     resume: true,
     meta: {
       generatedAt: new Date().toISOString(),
-      generator: 'contextbridge',
+      generator: 'ai-context-manager',
       generatorVersion: require('../../package.json').version,
       tokens: 0, // Will be updated
     },

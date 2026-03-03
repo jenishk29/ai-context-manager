@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * `contextbridge doctor` — Self-diagnostic command.
+ * `ai-context-manager doctor` — Self-diagnostic command.
  *
  * Checks Node.js version, config validity, file permissions,
  * git availability, disk space, and security.
@@ -18,14 +18,14 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
   command: 'doctor',
-  describe: 'Run diagnostics to check ContextBridge setup',
+  describe: 'Run diagnostics to check AI Context Manager setup',
   builder: (yargs) => yargs,
   handler: (argv) => {
     const projectRoot = process.cwd();
     const checks = [];
     let hasError = false;
 
-    logger.section('ContextBridge Doctor');
+    logger.section('AI Context Manager Doctor');
     logger.blank();
 
     // 1. Node.js version
@@ -75,7 +75,7 @@ module.exports = {
       addCheck(checks, 'warn', `Config file not found. Run 'acm init' first.`);
     }
 
-    // 6. .contextbridge/ directory
+    // 6. .ai-context-manager/ directory
     const contextDir = path.join(projectRoot, CONTEXTBRIDGE_DIR);
     if (fs.existsSync(contextDir)) {
       addCheck(checks, 'pass', `${CONTEXTBRIDGE_DIR}/ directory exists`);
@@ -118,10 +118,10 @@ module.exports = {
     const gitignorePath = path.join(projectRoot, '.gitignore');
     if (fs.existsSync(gitignorePath)) {
       const content = fs.readFileSync(gitignorePath, 'utf8');
-      if (content.includes('.contextbridge/') || content.includes('.contextbridge')) {
-        addCheck(checks, 'pass', '.contextbridge/ is in .gitignore');
+      if (content.includes('.ai-context-manager/') || content.includes('.ai-context-manager')) {
+        addCheck(checks, 'pass', '.ai-context-manager/ is in .gitignore');
       } else {
-        addCheck(checks, 'warn', '.contextbridge/ is NOT in .gitignore — handoff files may be committed');
+        addCheck(checks, 'warn', '.ai-context-manager/ is NOT in .gitignore — handoff files may be committed');
       }
     }
 

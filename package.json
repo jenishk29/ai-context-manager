@@ -1,6 +1,6 @@
 {
   "name": "@jenishk29/ai-context-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Complete AI context management solution — event tracking, snapshot generation, and seamless context handoff between AI tools. Works as both CLI and library.",
   "author": "Jenish Kheni",
   "license": "MIT",

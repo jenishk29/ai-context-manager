@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * `contextbridge validate` — Validate the config file.
+ * `ai-context-manager validate` — Validate the config file.
  *
  * Runs JSON Schema validation and reports all errors with detail.
  */
@@ -15,7 +15,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
   command: 'validate',
-  describe: 'Validate the .contextbridge.json config file',
+  describe: 'Validate the .ai-context-manager.json config file',
   builder: (yargs) => yargs,
   handler: (argv) => {
     const projectRoot = process.cwd();
