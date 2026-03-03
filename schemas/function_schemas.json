@@ -1,0 +1,129 @@
+{
+  "strict": true,
+  "functions": [
+    {
+      "name": "add_context_event",
+      "strict": true,
+      "description": "Add a new context event to the log.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tool_id", "operation", "status", "context_data", "tokens_used", "notes"],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "user_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "tool_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "operation": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "status": { "type": "string", "enum": ["started", "completed", "aborted", "pending"] },
+          "context_data": { "type": "object", "additionalProperties": true },
+          "tokens_used": { "type": "number", "minimum": 0 },
+          "notes": { "type": "string", "maxLength": 4000 }
+        }
+      }
+    },
+    {
+      "name": "update_context_event",
+      "strict": true,
+      "description": "Update an existing event (status/tokens/context_data/notes).",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id", "patch"],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "patch": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "timestamp": { "type": "string", "format": "date-time" },
+              "user_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+              "tool_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+              "operation": { "type": "string", "minLength": 1, "maxLength": 128 },
+              "status": { "type": "string", "enum": ["started", "completed", "aborted", "pending"] },
+              "context_data": { "type": "object", "additionalProperties": true },
+              "tokens_used": { "type": "number", "minimum": 0 },
+              "notes": { "type": "string", "maxLength": 4000 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "get_context_history",
+      "strict": true,
+      "description": "Retrieve ordered context history (most recent first by default).",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "order": { "type": "string", "enum": ["desc", "asc"], "default": "desc" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 5000 },
+          "tool_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "user_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "operation": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "status": { "type": "string", "enum": ["started", "completed", "aborted", "pending"] }
+        }
+      }
+    },
+    {
+      "name": "export_context",
+      "strict": true,
+      "description": "Export full context in the required JSON format for cross-tool interoperability.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "prune": { "type": "boolean", "default": true }
+        }
+      }
+    },
+    {
+      "name": "import_context",
+      "strict": true,
+      "description": "Import a previously exported context JSON blob (merges or replaces).",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["data"],
+        "properties": {
+          "data": { "$ref": "./export.schema.json" },
+          "mode": { "type": "string", "enum": ["replace", "merge"], "default": "replace" }
+        }
+      }
+    },
+    {
+      "name": "prune_context",
+      "strict": true,
+      "description": "Remove stale or unnecessary context entries based on a policy.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "max_events": { "type": "integer", "minimum": 1, "maximum": 50000, "default": 500 },
+          "max_age_days": { "type": "integer", "minimum": 1, "maximum": 3650, "default": 90 },
+          "drop_statuses": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["started", "completed", "aborted", "pending"] },
+            "default": ["aborted"]
+          }
+        }
+      }
+    },
+    {
+      "name": "rollback_to_event",
+      "strict": true,
+      "description": "Rollback the log to a specific event_id by removing newer entries (optionally preserving them as aborted).",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id"],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "preserve_removed_as_aborted": { "type": "boolean", "default": false }
+        }
+      }
+    }
+  ]
+}
+

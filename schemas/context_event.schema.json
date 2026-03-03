@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.local/ai-context-events/context_event.schema.json",
+  "title": "ContextEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "timestamp",
+    "tool_id",
+    "operation",
+    "status",
+    "context_data",
+    "tokens_used",
+    "notes"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Unique identifier for each event."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp."
+    },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Optional user id for multi-user support."
+    },
+    "tool_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Identifier of the originating AI tool."
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Operation performed (e.g., model_switch, context_update, code_rewrite)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["started", "completed", "aborted", "pending"],
+      "description": "State of the operation."
+    },
+    "context_data": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Structured description of goals/tasks/snippets/etc."
+    },
+    "tokens_used": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Tokens consumed during the operation."
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 4000,
+      "description": "User/system notes for auditability."
+    }
+  }
+}

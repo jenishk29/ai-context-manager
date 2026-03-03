@@ -1,0 +1,32 @@
+# Source — not needed in published package (only dist/ is)
+src/
+bin/
+tests/
+
+# Test files
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+
+# TypeScript config
+tsconfig*.json
+
+# Linting / formatting
+.eslintrc.json
+.prettierrc.json
+
+# Git & IDE
+.gitignore
+.git/
+.vscode/
+.idea/
+
+# Runtime / OS
+node_modules/
+coverage/
+.nyc_output/
+*.log
+*.md~
+.DS_Store
+*.tmp

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.local/ai-context-events/export.schema.json",
+  "title": "ContextExport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["context_history", "token_savings", "errors"],
+  "properties": {
+    "context_history": {
+      "type": "array",
+      "items": { "$ref": "./context_event.schema.json" }
+    },
+    "token_savings": {
+      "type": "number",
+      "description": "Cumulative token savings vs baseline."
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["error_code", "message"],
+        "properties": {
+          "error_code": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "message": { "type": "string", "minLength": 1, "maxLength": 4000 }
+        }
+      }
+    }
+  }
+}
+
