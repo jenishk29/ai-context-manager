@@ -1,10 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://contextbridge.dev/schema/config-v1.json",
-  "title": "ContextBridge Configuration",
-  "description": "Configuration file for ContextBridge AI context handoff tool.",
+  "$id": "https://ai-context-manager.dev/schema/config-v1.json",
+  "title": "AI Context Manager Configuration",
+  "description": "Configuration file for AI Context Manager handoff tool.",
   "type": "object",
-  "required": ["schemaVersion", "project"],
+  "required": [
+    "schemaVersion",
+    "project"
+  ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -13,12 +16,16 @@
     },
     "schemaVersion": {
       "type": "string",
-      "enum": ["1.0"],
+      "enum": [
+        "1.0"
+      ],
       "description": "Schema version for migration support."
     },
     "project": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "additionalProperties": false,
       "properties": {
         "name": {
@@ -29,7 +36,9 @@
         },
         "stack": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Technology stack. Auto-detected, can be overridden."
         },
         "description": {
@@ -48,7 +57,9 @@
             },
             "frameworkVersions": {
               "type": "array",
-              "items": { "type": "string" },
+              "items": {
+                "type": "string"
+              },
               "description": "Key framework/library versions, e.g. 'FastAPI 0.104.1', 'Next.js 14.0.0'."
             },
             "runtimeNotes": {
@@ -67,22 +78,30 @@
       "properties": {
         "completed": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "What's been completed."
         },
         "inProgress": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "What's currently being worked on."
         },
         "nextSteps": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "What needs to be done next, in priority order."
         },
         "blockers": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "What's blocked or undecided."
         },
         "lastUpdated": {
@@ -103,17 +122,23 @@
         },
         "relevantFiles": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Files the AI should focus on. Paths relative to project root."
         },
         "steps": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Optional ordered micro-steps for the active task to help new agents continue without replanning."
         },
         "codeHints": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Optional small code hints or signatures (1–3 lines each) that are especially important for the active task."
         }
       }
@@ -129,24 +154,32 @@
         },
         "patterns": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Key architectural patterns used (e.g., 'Repository pattern', 'Event sourcing')."
         },
         "constraints": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Technical constraints the AI must respect."
         },
         "protectedAreas": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Optional areas or modules that should not be heavily refactored or changed without explicit instruction (e.g., 'auth core', 'billing')."
         }
       }
     },
     "exclude": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Glob patterns to exclude from file tree. Merged with built-in security exclusions."
     },
     "options": {
@@ -162,7 +195,11 @@
         },
         "format": {
           "type": "string",
-          "enum": ["md", "json", "both"],
+          "enum": [
+            "md",
+            "json",
+            "both"
+          ],
           "default": "both",
           "description": "Output format for the handoff file."
         },

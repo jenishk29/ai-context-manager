@@ -7,6 +7,20 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.0.2] - 2026-03-03
+
+### Changed
+
+- **Package rename** — Published as `@jenishk29/ai-context-manager` (previously `@jenishk29/ai-context-manager`)
+- **CLI binary alias** — `ai-context-manager` command alias renamed to `ai-context-manager` (`acm` short alias unchanged)
+- **Config filenames** — `acm init` now creates `.ai-context-manager.json` and `.ai-context-manager/` directory (previously `.contextbridge.json` / `.contextbridge/`)
+- **TypeScript type** — `ContextBridgeConfig` renamed to `AiContextManagerConfig`
+- **Internal branding** — All display strings, schema metadata, and generator fields updated to "AI Context Manager"
+
+> **Migration from v1.0.1:** Rename `.contextbridge.json` → `.ai-context-manager.json` and `.contextbridge/` → `.ai-context-manager/` in any existing projects, or re-run `acm init --force`.
+
+---
+
 ## [1.0.0] - 2026-03-03
 
 ### Added
@@ -15,7 +29,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - `acm init` — interactive project initializer with auto stack detection
   - `acm snapshot` — generates a rich AI handoff file (Markdown + JSON)
   - `acm stats` — displays snapshot history and token usage
-  - `acm validate` — validates `.contextbridge.json` schema and file paths
+  - `acm validate` — validates `.ai-context-manager.json` schema and file paths
   - `acm doctor` — self-diagnostic health check
 - **`ContextManager` library** — programmatic event tracking API with:
   - `addEvent()`, `updateEvent()`, `abortEvent()`, `removeEvent()`
@@ -33,4 +47,5 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Dual module format** — CJS and ESM builds
 - **JSON Schemas** — exported for external use via `@jenishk29/ai-context-manager/schemas/*`
 
+[1.0.2]: https://github.com/jenishk29/ai-context-manager/releases/tag/v1.0.2
 [1.0.0]: https://github.com/jenishk29/ai-context-manager/releases/tag/v1.0.0

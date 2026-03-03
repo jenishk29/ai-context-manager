@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * `contextbridge stats` — Show snapshot history and token usage.
+ * `ai-context-manager stats` — Show snapshot history and token usage.
  */
 
 const fs = require('fs');
@@ -52,7 +52,7 @@ module.exports = {
     }
 
     // Display stats
-    logger.section('ContextBridge Statistics');
+    logger.section('AI Context Manager Statistics');
     logger.blank();
     logger.kv('Total snapshots', stats.totalSnapshots || 0);
     logger.kv('Total tokens generated', (stats.totalTokens || 0).toLocaleString());

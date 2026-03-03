@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * `contextbridge snapshot` — Generate the AI handoff file.
+ * `ai-context-manager snapshot` — Generate the AI handoff file.
  *
  * Collects project context, renders handoff markdown/JSON,
  * runs secret scan, and writes output files.
@@ -43,7 +43,7 @@ function logSnapshotContextEvent({ projectRoot, config, tokenAnalysis }) {
   if (!contextEventsInstance) {
     contextEventsInstance = new ContextEventsManager({
       storagePath: '.context-events/context.json',
-      tool_id: 'contextbridge',
+      tool_id: 'ai-context-manager',
     });
   }
 
@@ -60,7 +60,7 @@ function logSnapshotContextEvent({ projectRoot, config, tokenAnalysis }) {
         snapshot_lines: tokenAnalysis.lineCount,
       },
       tokens_used: tokenAnalysis.total,
-      notes: 'contextbridge snapshot generated handoff',
+      notes: 'ai-context-manager snapshot generated handoff',
     });
   } catch (err) {
     // Surface as debug only; snapshot should not fail because of logging.

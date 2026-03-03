@@ -29,7 +29,7 @@ export type {
   ArchitectureConfig,
   ReadBudget,
   OptionsConfig,
-  ContextBridgeConfig,
+  AiContextManagerConfig,
   GitContext,
   FileContent,
   HandoffData,
@@ -58,11 +58,11 @@ export const schemas = {
 
 export { estimateTokensFromJson } from './token';
 export { readJsonIfExists, writeJsonAtomic, ensureDir } from './storage';
-export { 
-  isoNow, 
-  generateEventId, 
-  sortByTimestampDesc, 
-  sortByTimestampAsc, 
+export {
+  isoNow,
+  generateEventId,
+  sortByTimestampDesc,
+  sortByTimestampAsc,
   normalizeStoragePath,
-  cloneJson 
+  cloneJson
 } from './utils';

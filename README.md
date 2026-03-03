@@ -90,7 +90,7 @@ cd my-project
 # 3. Initialize (once per project)
 acm init
 
-# 4. Fill in .contextbridge.json — add your current task & progress
+# 4. Fill in .ai-context-manager.json — add your current task & progress
 
 # 5. Generate handoff file
 acm snapshot
@@ -112,7 +112,7 @@ acm init -y              # accept all defaults (CI-friendly)
 acm init --force         # overwrite existing config
 ```
 
-Creates `.contextbridge.json` at your project root. Commit this file — it's how your team shares context state. The generated `.contextbridge/` directory (handoff files) is git-ignored automatically.
+Creates `.ai-context-manager.json` at your project root. Commit this file — it's how your team shares context state. The generated `.ai-context-manager/` directory (handoff files) is git-ignored automatically.
 
 **Output:**
 
@@ -123,14 +123,14 @@ Detecting project stack...
 ✔ Detected: node, typescript, react
   Project name: my-app
 
-✔ Created .contextbridge.json
-✔ Created .contextbridge/ directory
-✔ Added .contextbridge/ to .gitignore
+✔ Created .ai-context-manager.json
+✔ Created .ai-context-manager/ directory
+✔ Added .ai-context-manager/ to .gitignore
 
 Setup complete!
 
 Next steps:
-   1. Edit .contextbridge.json to add your progress & context
+   1. Edit .ai-context-manager.json to add your progress & context
    2. Run acm snapshot to generate a handoff file
    3. Paste the handoff into your new AI session
 ```
@@ -206,7 +206,7 @@ acm stats --json         # raw JSON output (pipe-friendly)
 **Output:**
 
 ```
-ContextBridge Statistics
+AI Context Manager Statistics
 
    Total snapshots:         24
    Total tokens generated:  78,400
@@ -223,7 +223,7 @@ Recent snapshots:
 
 ### `acm validate`
 
-Validate your `.contextbridge.json` config file.
+Validate your `.ai-context-manager.json` config file.
 
 ```bash
 acm validate
@@ -250,19 +250,19 @@ acm doctor
 **Output:**
 
 ```
-ContextBridge Doctor
+AI Context Manager Doctor
 
   ✔ Node.js version: 20.11.0
   ℹ Platform: darwin arm64
-  ✔ Config file found: .contextbridge.json
+  ✔ Config file found: .ai-context-manager.json
   ✔ Config file is valid JSON and passes schema validation
   ✔ All 3 relevant files exist and are valid
-  ✔ .contextbridge/ directory exists
-  ✔ .contextbridge/ is writable
+  ✔ .ai-context-manager/ directory exists
+  ✔ .ai-context-manager/ is writable
   ✔ Disk space: 142,311 MB available
   ✔ Git is available
   ✔ Project is a git repository
-  ✔ .contextbridge/ is in .gitignore
+  ✔ .ai-context-manager/ is in .gitignore
 
 11 passed, 0 failed, 0 warnings
 ```
@@ -271,7 +271,7 @@ ContextBridge Doctor
 
 ## Configuration
 
-`.contextbridge.json` lives at your project root and drives every snapshot.
+`.ai-context-manager.json` lives at your project root and drives every snapshot.
 
 ```json
 {

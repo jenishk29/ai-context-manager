@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Config Loader — Loads, validates, and resolves .contextbridge.json
+ * Config Loader — Loads, validates, and resolves .ai-context-manager.json
  *
  * Security: Uses JSON (not JS) config to prevent arbitrary code execution.
  * Validates against JSON Schema with ajv.
@@ -15,8 +15,8 @@ const addFormats = require('ajv-formats');
 const { readFileUTF8 } = require('../utils/platform');
 const { logger } = require('../utils/logger');
 
-const CONFIG_FILENAME = '.contextbridge.json';
-const CONTEXTBRIDGE_DIR = '.contextbridge';
+const CONFIG_FILENAME = '.ai-context-manager.json';
+const CONTEXTBRIDGE_DIR = '.ai-context-manager';
 
 // Schema loaded once
 const configSchema = require('../schemas/config.schema.json');
@@ -63,8 +63,8 @@ const SECURITY_EXCLUSIONS = [
   'Pipfile.lock', 'poetry.lock', 'Gemfile.lock', 'composer.lock',
   'Cargo.lock', 'go.sum',
 
-  // ContextBridge's own output
-  '.contextbridge/',
+  // AI Context Manager's own output
+  '.ai-context-manager/',
 ];
 
 /**

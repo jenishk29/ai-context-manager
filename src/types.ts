@@ -104,7 +104,7 @@ export interface OptionsConfig {
   readBudget?: ReadBudget;
 }
 
-export interface ContextBridgeConfig {
+export interface AiContextManagerConfig {
   schemaVersion: string;
   project: ProjectConfig;
   progress: ProgressConfig;
