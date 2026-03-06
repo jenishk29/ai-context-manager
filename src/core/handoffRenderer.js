@@ -16,7 +16,38 @@ const { scanForSecrets, formatScanResults } = require('./secretScanner');
 const { writeFileAtomic, normalizePath } = require('../utils/platform');
 const { logger } = require('../utils/logger');
 
-const TEMPLATE_PATH = path.join(__dirname, '..', '..', 'templates', 'handoff.md.ejs');
+/**
+ * Robustly resolve the templates directory by walking up from __dirname
+ * until we find the package root (a directory containing our package.json).
+ * This works correctly whether the package is:
+ *   - Installed globally  (node_modules/.bin → package root)
+ *   - Installed locally   (project/node_modules/@jenishk29/... → package root)
+ *   - Run from source     (dist/cjs/src/core → repo root)
+ */
+function findTemplatesDir() {
+  const PKG_NAME = '@jenishk29/ai-context-manager';
+  let dir = __dirname;
+  for (let i = 0; i < 10; i++) {
+    const pkgPath = path.join(dir, 'package.json');
+    if (fs.existsSync(pkgPath)) {
+      try {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.name === PKG_NAME) {
+          const tplDir = path.join(dir, 'templates');
+          if (fs.existsSync(tplDir)) return tplDir;
+        }
+      } catch (_) { /* continue walking */ }
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) break; // reached filesystem root
+    dir = parent;
+  }
+  // Last-resort: relative to this file (works in source/dev mode)
+  return path.join(__dirname, '..', '..', '..', '..', 'templates');
+}
+
+const TEMPLATES_DIR = findTemplatesDir();
+const TEMPLATE_PATH = path.join(TEMPLATES_DIR, 'handoff.md.ejs');
 
 /**
  * Render the handoff files (Markdown and/or JSON).

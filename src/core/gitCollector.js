@@ -123,7 +123,7 @@ function collectGitContext(projectRoot, options = {}) {
   }
 
   // Unpushed commits
-  const unpushed = git('log @{u}..HEAD --oneline 2>/dev/null', projectRoot);
+  const unpushed = git('log @{u}..HEAD --oneline', projectRoot);
   if (unpushed) {
     const lines = unpushed.split('\n').filter(Boolean);
     context.hasUnpushed = lines.length > 0;
