@@ -1,6 +1,6 @@
 {
   "name": "@jenishk29/ai-context-manager",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Complete AI context management solution — event tracking, snapshot generation, and seamless context handoff between AI tools. Works as both CLI and library.",
   "author": "Jenish Kheni",
   "license": "MIT",
@@ -67,8 +67,9 @@
     "clean": "node -e \"require('fs').rmSync('dist', {recursive:true, force:true})\"",
     "build:cjs": "tsc -p tsconfig.json",
     "build:esm": "tsc -p tsconfig.esm.json && echo {\\\"type\\\":\\\"module\\\"} > dist/esm/package.json",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run fix-bin-shebang",
+    "copy-templates": "node -e \"const fs=require('fs'),p=require('path'); ['dist/cjs/templates','dist/esm/templates'].forEach(d=>{fs.mkdirSync(d,{recursive:true}); fs.readdirSync('templates').forEach(f=>fs.copyFileSync(p.join('templates',f),p.join(d,f)))});\"",
     "fix-bin-shebang": "node -e \"const fs=require('fs'); const p='dist/cjs/bin/cli.js'; let c=fs.readFileSync(p,'utf8'); if(!c.startsWith('#!/usr/bin/env node')){fs.writeFileSync(p,'#!/usr/bin/env node\\n'+c)}\"",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run copy-templates && npm run fix-bin-shebang",
     "test": "npm run build && node --test tests/**/*.test.js",
     "test:unit": "npm run build && node --test tests/unit/**/*.test.js",
     "test:integration": "npm run build && node --test tests/integration/**/*.test.js",
