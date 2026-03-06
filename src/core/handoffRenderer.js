@@ -16,7 +16,27 @@ const { scanForSecrets, formatScanResults } = require('./secretScanner');
 const { writeFileAtomic, normalizePath } = require('../utils/platform');
 const { logger } = require('../utils/logger');
 
-const TEMPLATE_PATH = path.join(__dirname, '..', '..', 'templates', 'handoff.md.ejs');
+// Maximum directory levels to search upward for the templates folder.
+// 8 levels covers the deepest expected path (dist/cjs/src/core/) back to the package root.
+const MAX_SEARCH_DEPTH = 8;
+
+/**
+ * Resolve the templates directory by searching upward from __dirname.
+ * Works in both development (src/core/) and built (dist/cjs/src/core/) contexts.
+ */
+function findTemplatesDir() {
+  let dir = __dirname;
+  for (let i = 0; i < MAX_SEARCH_DEPTH; i++) {
+    const candidate = path.join(dir, 'templates');
+    if (fs.existsSync(candidate)) return candidate;
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  throw new Error(`Could not find templates directory (searched from ${__dirname})`);
+}
+
+const TEMPLATE_PATH = path.join(findTemplatesDir(), 'handoff.md.ejs');
 
 /**
  * Render the handoff files (Markdown and/or JSON).
