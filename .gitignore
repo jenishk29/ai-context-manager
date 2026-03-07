@@ -31,3 +31,6 @@ coverage/
 
 # ContextBridge handoff files (generated at runtime)
 .contextbridge/
+
+# AI Context Manager handoff files
+.ai-context-manager/
